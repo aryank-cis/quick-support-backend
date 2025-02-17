@@ -1,4 +1,4 @@
-import { Document } from 'mongoose'
+import { Document, Schema } from 'mongoose'
 import { BaseSchema } from '../common/dto/base.dto'
 
 export interface IUser extends BaseSchema, Document {
@@ -7,4 +7,5 @@ export interface IUser extends BaseSchema, Document {
     first_name: string
     last_name?: string
     role?: string
+    tickets: Schema.Types.ObjectId[]
 }

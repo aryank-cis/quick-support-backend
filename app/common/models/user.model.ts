@@ -8,6 +8,12 @@ const userSchema = new Schema(
         first_name: { type: String, required: true },
         last_name: { type: String },
         role: { type: String },
+        tickets: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Ticket',
+            },
+        ],
     },
     {
         timestamps: true,
