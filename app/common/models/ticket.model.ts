@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose'
-import { ITicket } from '../../ticket/ticket.dto'
+import { ITicket, TicketPriority, TicketStatus } from '../../ticket/ticket.dto'
 
 const ticketSchema = new Schema(
     {
@@ -15,9 +15,11 @@ const ticketSchema = new Schema(
         },
         status: {
             type: String,
+            enum: TicketStatus,
         },
         priority: {
             type: String,
+            enum: TicketPriority,
         },
         category: {
             type: String,

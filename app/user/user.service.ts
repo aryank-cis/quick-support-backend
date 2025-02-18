@@ -20,6 +20,6 @@ export const getUserByEmail = async (email: string) => {
 }
 
 export const getUserById = async (id: string) => {
-    const result = await User.findById({ id })
+    const result = await User.findById(id)
     return result
 }

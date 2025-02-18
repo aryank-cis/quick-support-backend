@@ -14,18 +14,23 @@ export const authenticate = expressAsyncHandler(
             })
         }
 
-        const decodedUser = jwt.verify(token, process.env.JWT_SECRET!) as { id: string }
+        const decodedUser = jwt.verify(token, process.env.JWT_SECRET!) as {
+            _id: string
+        }
+
         if (!decodedUser) {
             throw createHttpError(401, {
                 message: `Invalid token`,
             })
         }
-        const user = await userService.getUserById(decodedUser.id)
+
+        const user = await userService.getUserById(decodedUser._id)
         if (!user) {
             throw createHttpError(401, {
                 message: `Invalid token`,
             })
         }
+
         next()
     }
 )
