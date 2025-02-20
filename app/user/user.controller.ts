@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { createResponse } from '../common/helper/response.helper'
 import asyncHandler from 'express-async-handler'
 import * as userService from './user.service'
-
+import jwt from 'jsonwebtoken'
 import { createUserTokens } from '../common/services/passport-jwt.service'
 import passport from 'passport'
 import { IUser } from './user.dto'
@@ -43,3 +43,20 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
         }
     )(req, res)
 })
+
+export const getCurrentUser = asyncHandler(
+    async (req: Request, res: Response) => {
+        const token = req.headers.authorization?.replace('Bearer ', '')
+
+        // @ts-ignore
+        const decodedUser = jwt.verify(token, process.env.JWT_SECRET!) as {
+            _id: string
+        }
+
+        const user = await userService.getUserById(decodedUser._id)
+        // @ts-ignore
+        const { password, ...data } = user.toObject()
+
+        res.send(createResponse(data))
+    }
+)

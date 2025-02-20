@@ -14,6 +14,7 @@ router
         userController.createUser
     )
     .post('/login', userValidator.login, catchError, userController.login)
+    .get('/me', authenticate, userController.getCurrentUser)
     .get('/:email', authenticate, userController.getUserByEmail)
     .get('/id/:id', authenticate, userController.getUserById)
 

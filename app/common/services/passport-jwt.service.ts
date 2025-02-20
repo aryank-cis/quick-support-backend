@@ -79,7 +79,7 @@ export const createUserTokens = (user: Omit<IUser, 'password'>) => {
     const refreshToken = jwt.sign({ user }, jwtSecret, {
         expiresIn: '1d',
     })
-    return { accessToken: accessToken, refreshToken: refreshToken }
+    return { access_token: accessToken, refresh_token: refreshToken }
 }
 
 export const decodeToken = (token: string) => {
